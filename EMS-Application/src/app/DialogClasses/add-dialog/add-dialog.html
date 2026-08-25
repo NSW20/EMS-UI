@@ -3,11 +3,21 @@
     <form [formGroup]="addDesignation">
       <mat-form-field appearance="outline" class="w-100">
         <mat-label>Designation</mat-label>
-        <input matInput type="text" formControlName="title" />
+        <input matInput type="text" formControlName="title"/>
+        <mat-error>
+          @if(addDesignation.get('title')?.hasError('required')){
+             Designation title is required
+          }
+        </mat-error>
       </mat-form-field>
       <mat-form-field appearance="outline" class="w-100">
         <mat-label>DepartmentId</mat-label>
         <input matInput type="number" formControlName="departmentId" />
+         <mat-error>
+          @if(addDesignation.get('departmentId')?.hasError('required')){
+             Department Id is required
+          }
+        </mat-error>
       </mat-form-field>
     </form>
   </mat-dialog-content>
