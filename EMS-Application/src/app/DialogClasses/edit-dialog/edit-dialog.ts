@@ -1,4 +1,4 @@
-import { Component,inject } from '@angular/core';
+import { Component,inject, OnInit } from '@angular/core';
 import { ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
@@ -9,25 +9,45 @@ import { MatInputModule } from '@angular/material/input';
 import { DesignationModel } from '../../Models/designation_model';
 import { DesignationService } from '../../Services/designation-service';
 import { MatSnackBarModule,MatSnackBar} from '@angular/material/snack-bar';
+import { DepartmentService } from '../../Services/departmentService/department-service';
+import { MatSelectModule } from "@angular/material/select";
 
 @Component({
-  imports: [MatDialogModule,ReactiveFormsModule,
-   MatButtonModule,MatIconModule,MatFormFieldModule,MatInputModule,MatSnackBarModule],
+  imports: [MatDialogModule, ReactiveFormsModule,
+    MatButtonModule, MatIconModule, MatSelectModule,MatFormFieldModule, MatInputModule, MatSnackBarModule],
   selector: 'app-edit-dialog',
   styleUrl: './edit-dialog.css',
   templateUrl: './edit-dialog.html',
 })
-export class EditDialog {
+export class EditDialog implements OnInit {
+
    private nfb:NonNullableFormBuilder=inject(NonNullableFormBuilder);
    private designationService:DesignationService=inject(DesignationService);
    private dialogRef=inject(MatDialogRef<EditDialog>);
    private snackbar:MatSnackBar=inject(MatSnackBar);
+    private departmentService: DepartmentService = inject(DepartmentService);
    data:DesignationModel=inject(MAT_DIALOG_DATA);
+    allDepartment: DepartmentDTO[] = [];
    editReactiveForm=this.nfb.group({
     designationId:this.nfb.control(this.data.designationId,{validators:[Validators.required]}),
      title:this.nfb.control(this.data.title,{validators:[Validators.required]}),
       departmentId:this.nfb.control(this.data.departmentId,{validators:[Validators.required]})
    })
+      ngOnInit(): void {
+         this.loadAllDepartment();
+   }
+ loadAllDepartment(): void {
+    this.departmentService.getAllDepartment().subscribe({
+      next: (succ) => {
+        this.allDepartment = succ.data;
+        console.log('all department has been fetched');
+        console.log(succ.data);
+        
+      },
+      error: (err) => {
+        console.log(err);
+      },
+    })}
 
    OnEditSubmit():void{
       if(this.editReactiveForm.valid){

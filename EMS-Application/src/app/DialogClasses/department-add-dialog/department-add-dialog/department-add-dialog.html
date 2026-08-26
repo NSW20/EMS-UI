@@ -4,14 +4,20 @@
       <mat-form-field appearance="outline" class="w-100">
         <mat-label>Title</mat-label>
         <input matInput type="text" formControlName="name"/>
+          @if(addDepartment.get('name')?.hasError('required')&& addDepartment.touched){
+          <mat-error>Please enter the department name</mat-error>
+          }
       </mat-form-field>
     <mat-form-field appearance="outline" class="w-100">
         <mat-label>Description</mat-label>
         <input matInput type="text" formControlName="description"/>
+        @if(addDepartment.get('description')?.hasError('required') && addDepartment.touched){
+          <mat-error>Please enter the department description</mat-error>
+          }
       </mat-form-field>
    </form>
    <mat-dialog-actions align="end">
-     <button mat-button mat-dialog-close (click)="closeDialog()">Close</button>
+     <button mat-button mat-dialog-close (click)="closeDialog()"><mat-icon>cancel</mat-icon>Cancel</button>
      <button mat-button (click)="submitAddDepartment()"><mat-icon>save</mat-icon>Save</button>
    </mat-dialog-actions>
 </mat-dialog-content>

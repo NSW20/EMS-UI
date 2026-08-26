@@ -2,7 +2,7 @@
 <mat-dialog-content>
     <p>Are you sure you want to remove <span class="fw-bold">{{title}}</span> designation?</p>
     <mat-dialog-actions align="end">
-        <button mat-button mat-dialog-close (click)="OnCancle()">No</button>
-        <button mat-button (click)="OnRemove()">Ok</button>
+        <button mat-button mat-dialog-close (click)="OnCancle()"><mat-icon>cancel</mat-icon>No</button>
+        <button mat-button (click)="OnRemove()"><mat-icon>save</mat-icon>Ok</button>
     </mat-dialog-actions>
 </mat-dialog-content>

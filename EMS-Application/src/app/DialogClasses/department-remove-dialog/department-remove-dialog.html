@@ -1,1 +1,6 @@
-<p>department-remove-dialog works!</p>
+<h2 mat-dialog-title>Remove Department</h2>
+<mat-dialog-content class="mt-2">
+    <p>Are you sure you want to remove Department <span class="fw-bold">{{departmentData.name}}</span>?</p>
+    <button mat-button (click)="OnRemove()"><mat-icon>save</mat-icon>Ok</button>
+    <button mat-button (click)="OnCancel()"><mat-icon>cancel</mat-icon>Cancel</button>
+</mat-dialog-content>

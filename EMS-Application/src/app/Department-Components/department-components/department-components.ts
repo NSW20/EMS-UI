@@ -7,12 +7,11 @@ import { DepartmentService } from '../../Services/departmentService/department-s
 import { MatDialogModule,MatDialog } from '@angular/material/dialog';
 import { MatSnackBarModule,MatSnackBar } from '@angular/material/snack-bar';
 import { ɵEmptyOutletComponent } from "@angular/router";
-import { MatPaginatorModule,MatPaginator } from '@angular/material/paginator';
 import { DepartmentEditDialog } from '../../DialogClasses/department-edit-dialog/department-edit-dialog/department-edit-dialog';
 import { DepartmentRemoveDialog } from '../../DialogClasses/department-remove-dialog/department-remove-dialog';
 import { DepartmentAddDialog } from '../../DialogClasses/department-add-dialog/department-add-dialog/department-add-dialog';
 @Component({
-  imports: [MatTableModule, MatButtonModule, MatIconModule, MatDialogModule, ɵEmptyOutletComponent, MatPaginator],
+  imports: [MatTableModule, MatButtonModule, MatIconModule, MatDialogModule, ],
   selector: 'app-department-components',
   styleUrl: './department-components.css',
   templateUrl: './department-components.html',
@@ -23,9 +22,7 @@ export class DepartmentComponents implements OnInit {
   private matDialogRef:MatDialog=inject(MatDialog);
   private matSnackBar:MatSnackBar=inject(MatSnackBar);
   departments:DepartmentDTO[]=[];
-  dataSource=new MatTableDataSource<DepartmentDTO>(this.departments);
   departmentColumns:string[]=['departmentId','name','description','actions']
-  @ViewChild (MatPaginator)matPaginator!:MatPaginator;
   ngOnInit(): void {
     this.loadAllDepartments();
   }
@@ -34,10 +31,7 @@ export class DepartmentComponents implements OnInit {
       next:(result)=>{
         if(result.statusCode===200){
             this.departments=result.data;
-            this.matSnackBar.open('Successfully fetched all the departments','close',{duration:3000});
             console.log(result.data)
-            this.dataSource=new MatTableDataSource(this.departments);
-            this.dataSource.paginator=this.matPaginator;
             this.cdk.detectChanges();
         }
       },
@@ -62,15 +56,27 @@ export class DepartmentComponents implements OnInit {
     })
   }
   openEditDialog(element:DepartmentDTO):void{
-    this.matDialogRef.open(DepartmentEditDialog,{
+    const dialog=this.matDialogRef.open(DepartmentEditDialog,{
       width:'400px',
       data:element
     })
+    dialog.afterClosed().subscribe(result=>{
+    if(result){
+      this.loadAllDepartments();
+      this.cdk.detectChanges();
+    }
+   })
   }
   openRemoveDialog(element:DepartmentDTO):void{
-    this.matDialogRef.open(DepartmentRemoveDialog,{
+    const dialog=this.matDialogRef.open(DepartmentRemoveDialog,{
       width:'400px',
       data:element
     })
+  dialog.afterClosed().subscribe(result=>{
+    if(result){
+      this.loadAllDepartments();
+      this.cdk.detectChanges();
+    }
+  })
   }
 }

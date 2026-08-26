@@ -10,7 +10,7 @@
           }
         </mat-error>
       </mat-form-field>
-      <mat-form-field appearance="outline" class="w-100">
+      <!-- <mat-form-field appearance="outline" class="w-100">
         <mat-label>DepartmentId</mat-label>
         <input matInput type="number" formControlName="departmentId" />
          <mat-error>
@@ -18,10 +18,18 @@
              Department Id is required
           }
         </mat-error>
+      </mat-form-field> -->
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-select  formControlName="departmentId">
+          <mat-option [value]="0">Choose department</mat-option>
+          @for(department of allDepartment;track department.departmentId){
+          <mat-option [value]="department.departmentId">{{department.name}}</mat-option>
+          }
+        </mat-select>
       </mat-form-field>
     </form>
   </mat-dialog-content>
 <mat-dialog-actions align="end">
-  <button mat-button mat-dialog-close (click)="cancel()">Cancel</button>
-  <button mat-raised-button color="primary" (click)="OnSubmit()">Save</button>
+  <button mat-button mat-dialog-close (click)="cancel()"><mat-icon>cancel</mat-icon>Cancel</button>
+  <button mat-raised-button color="primary" (click)="OnSubmit()"><mat-icon>save</mat-icon>Save</button>
 </mat-dialog-actions>
