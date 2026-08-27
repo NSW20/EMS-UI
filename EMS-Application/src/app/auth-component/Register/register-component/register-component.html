@@ -1,0 +1,79 @@
+<div class="d-flex justify-content-center align-items-center min-vh-100">
+    <div class="w-50">
+   <mat-card class="mat-card-style">
+        <mat-card-title class="text-center mt-10">Register</mat-card-title>
+           <mat-card-content>
+               <form [formGroup]="registerForm">
+                   <mat-form-field class="w-100" appearance="outline">
+                      <mat-label>Name</mat-label>
+                      <input matInput type="text" formControlName="name"/>
+                      @if(registerForm.get('name')?.hasError('required')&&registerForm.touched){
+                        <mat-error>Please enter your name</mat-error>
+                      }
+                   </mat-form-field>
+                    <mat-form-field class="w-100" appearance="outline">
+                      <mat-label>User Name</mat-label>
+                      <input matInput type="text" formControlName="username"/>
+                      @if(registerForm.get('username')?.hasError('required')&&registerForm.touched){
+                        <mat-error>Please enter your username</mat-error>
+                      }
+                   </mat-form-field>
+                    <mat-form-field class="w-100" appearance="outline">
+                      <mat-label>Email</mat-label>
+                      <input matInput type="email" formControlName="email"/>
+                       @if(registerForm.get('email')?.hasError('required')&&registerForm.touched){
+                        <mat-error>Please enter your email</mat-error>
+                      }
+                      @else if(registerForm.get('email')?.hasError('email')&&registerForm.touched){
+                         <mat-error>Please enter valid email</mat-error>
+                      }
+                   </mat-form-field>
+                    <mat-form-field class="w-100" appearance="outline">
+                      <mat-label>Phone</mat-label>
+                      <input matInput type="tel" formControlName="phone"/>
+                        @if(registerForm.get('phone')?.hasError('required')&&registerForm.touched){
+                        <mat-error>Please enter your phone</mat-error>
+                      }
+                      @else if(registerForm.get('phone')?.hasError('maxLength')&&registerForm.touched){
+                         <mat-error>Please enter a valid phone number</mat-error>
+                      }
+                   </mat-form-field>
+                    <mat-form-field class="w-100" appearance="outline">
+                      <mat-label>Password</mat-label>
+                      <input matInput type="Password" formControlName="password"/>
+                       @if(registerForm.get('password')?.hasError('required')&&registerForm.touched){
+                        <mat-error>Please enter your password</mat-error>
+                      }
+                      @else if(registerForm.get('password')?.hasError('minlength')&&registerForm.touched){
+                         <mat-error>Password should be atleast 8 characters</mat-error>
+                      }
+                   </mat-form-field>
+                    <mat-form-field class="w-100" appearance="outline">
+                      <mat-label>confirm Password</mat-label>
+                      <input matInput type="Password" formControlName="confirmPassword"/>
+                        @if(registerForm.get('confirmPassword')?.hasError('required')&&registerForm.touched){
+                        <mat-error>Please confirm your password</mat-error>
+                      }
+                      @else if(registerForm.get('confirmPassword')?.hasError('minlength')&&registerForm.touched){
+                         <mat-error>Password should be atleast 8 characters</mat-error>
+                      }
+                      @else{
+                        <mat-error>Password do not match. Please check your password.</mat-error>
+                      }
+                   </mat-form-field>
+                   <mat-form-field class="w-100" appearance="outline">
+                      <mat-label>Role</mat-label>
+                      <input matInput type="text" formControlName="role"/>
+                      @if(registerForm.get('role')?.hasError('required')&&registerForm.touched){
+                        <mat-error>Please enter your role</mat-error>
+                      }
+                   </mat-form-field>
+               </form>
+           </mat-card-content>
+           <mat-card-actions align="end">
+          <button mat-button (click)="onSubmitRegister()"><mat-icon>login</mat-icon>Register</button>
+          <button mat-button (click)="resetForm()"><mat-icon>cancel</mat-icon>Cancel</button>
+           </mat-card-actions>
+      </mat-card>
+    </div>
+</div>
