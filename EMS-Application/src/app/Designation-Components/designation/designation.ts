@@ -11,8 +11,9 @@ import { EditDialog } from '../../DialogClasses/edit-dialog/edit-dialog';
 import { RemoveDialog } from '../../DialogClasses/remove-dialog/remove-dialog';
 import { ChangeDetectorRef } from '@angular/core';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
+import { MatError } from "@angular/material/form-field";
 @Component({
-  imports: [MatButtonModule, MatIconModule, MatProgressSpinnerModule, MatTableModule, MatDialogModule, MatPaginator],
+  imports: [MatButtonModule, MatIconModule, MatProgressSpinnerModule, MatTableModule, MatDialogModule, MatPaginator, MatError],
   selector: 'app-designation',
   styleUrl: './designation.css',
   templateUrl: './designation.html',

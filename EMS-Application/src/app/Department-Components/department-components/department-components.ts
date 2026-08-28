@@ -10,8 +10,9 @@ import { ɵEmptyOutletComponent } from "@angular/router";
 import { DepartmentEditDialog } from '../../DialogClasses/department-edit-dialog/department-edit-dialog/department-edit-dialog';
 import { DepartmentRemoveDialog } from '../../DialogClasses/department-remove-dialog/department-remove-dialog';
 import { DepartmentAddDialog } from '../../DialogClasses/department-add-dialog/department-add-dialog/department-add-dialog';
+import { MatTooltipModule } from '@angular/material/tooltip';
 @Component({
-  imports: [MatTableModule, MatButtonModule, MatIconModule, MatDialogModule, ],
+  imports: [MatTableModule, MatButtonModule, MatIconModule,MatTooltipModule, MatDialogModule, ],
   selector: 'app-department-components',
   styleUrl: './department-components.css',
   templateUrl: './department-components.html',
