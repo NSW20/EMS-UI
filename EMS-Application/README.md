@@ -56,6 +56,17 @@ EMS is a standalone Angular application for managing authentication, departments
 | `/logout` | Logout dialog component | Available route |
 | `/` | Redirects to `/register` | Public |
 
+## Future Enhancements
+
+The following features are planned for upcoming versions of the Employee Management System:
+
+- **Employee management:** Add an employee screen to create, view, update, and remove employee records.
+- **Leave management:** Add leave request, approval, tracking, and leave-history workflows.
+- **Attendance management:** Add attendance recording, daily attendance views, and attendance history.
+- **Pagination:** Add pagination to employee, leave, attendance, and other larger data tables where required.
+- **Sorting:** Allow users to sort table data by relevant columns such as name, date, department, status, and role.
+- **Filtering:** Add filters and search options to help users quickly find employees, leave requests, and attendance records.
+
 ## Technology Used
 
 - Angular `22.1.x` with standalone components.
