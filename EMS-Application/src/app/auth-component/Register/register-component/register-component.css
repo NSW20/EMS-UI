@@ -4,3 +4,27 @@
 .w-75{
     width: 75%;
 }
+.card-bg{
+    background-color: #FFFFFF;
+}
+.header-color{
+    background-color: #2C3E50;
+    color: #FFFFFF;
+}
+.bg-radius{
+    border-radius: 12px;
+}
+.btn_register {
+    color: white;
+    background-color: #2E7D32;    /* balanced material green */
+}
+.btn_register:hover{
+    transform: scale(1.1);
+}
+.btn_cancel {
+    color: white;
+    background-color: #C62828;  /* balanced material red */
+}
+.btn_cancel:hover{
+        transform: scale(1.1);
+}

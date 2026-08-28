@@ -1,6 +1,6 @@
 <div class="container">
-   <h2 class="text-center text-white mt-2 bg-secondary">Designations</h2>
-   <button mat-button class="mt-2" (click)="openAddDialog()"><mat-icon>add</mat-icon> New Designation</button>
+   <h2 class="text-center mt-2 header-color">Designations</h2>
+   <button mat-button class="mt-2" (click)="openAddDialog()" class="mb-3"><mat-icon>add</mat-icon> New Designation</button>
    <table mat-table [dataSource]="dataSource">
     <ng-container matColumnDef="designationId">
       <th mat-header-cell *matHeaderCellDef>Id</th>
@@ -17,12 +17,12 @@
     <ng-container matColumnDef="actions">
      <th mat-header-cell *matHeaderCellDef>Actions</th>
      <td mat-cell *matCellDef="let element">
-        <button mat-button (click)="openEditDialog(element)"><mat-icon>edit</mat-icon>Edit</button>
-        <button mat-button (click)="openRemoveDialog(element)"><mat-icon>delete</mat-icon>Remove</button>
+        <button mat-button (click)="openEditDialog(element)" class="edit-btn"><mat-icon>edit</mat-icon>Edit</button>
+        <button mat-button (click)="openRemoveDialog(element)" class="edit-remove mx-sm-2"><mat-icon>delete</mat-icon>Remove</button>
      </td>
     </ng-container>
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row;columns:displayedColumns;"></tr>
+    <tr mat-header-row *matHeaderRowDef="displayedColumns" class="table-style"></tr>
+    <tr mat-row *matRowDef="let row;columns:displayedColumns;" class="table-data"></tr>
 </table>
 <mat-paginator [pageSizeOptions]="[5,10,20]" showFirstLastButtons></mat-paginator>
 </div>

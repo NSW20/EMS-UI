@@ -11,12 +11,12 @@ interface Login{
      email:string,
     password:string,
 }
-interface ForgotPassword{
+interface ForgotPasswordModel{
     email:string
 }
-interface ResetPassword{
+interface ResetPasswordModel{
     email:string,
     token:string,
-    password:string,
+    newPassword:string,
     confirmPassword:string
 }

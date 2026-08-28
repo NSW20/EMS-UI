@@ -10,15 +10,6 @@
           }
         </mat-error>
       </mat-form-field>
-      <!-- <mat-form-field appearance="outline" class="w-100">
-        <mat-label>DepartmentId</mat-label>
-        <input matInput type="number" formControlName="departmentId" />
-         <mat-error>
-          @if(addDesignation.get('departmentId')?.hasError('required')){
-             Department Id is required
-          }
-        </mat-error>
-      </mat-form-field> -->
       <mat-form-field appearance="outline" class="w-100">
         <mat-select  formControlName="departmentId">
           <mat-option [value]="0">Choose department</mat-option>

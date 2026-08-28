@@ -1,10 +1,10 @@
 <div class="d-flex justify-content-center align-items-center min-vh-100">
-    <div class="w-50">
-   <mat-card class="mat-card-style">
-        <mat-card-title class="text-center mt-10">Register</mat-card-title>
+    <div class="w-25">
+   <mat-card class="mat-card-style card-bg shadow">
+        <mat-card-title class="text-center mt-10 header-color p-2 fs-3 bg-radius">Register</mat-card-title>
            <mat-card-content>
                <form [formGroup]="registerForm">
-                   <mat-form-field class="w-100" appearance="outline">
+                   <mat-form-field class="w-100" appearance="outline" >
                       <mat-label>Name</mat-label>
                       <input matInput type="text" formControlName="name"/>
                       @if(registerForm.get('name')?.hasError('required')&&registerForm.touched){
@@ -71,9 +71,12 @@
                </form>
            </mat-card-content>
            <mat-card-actions align="end">
-          <button mat-button (click)="onSubmitRegister()"><mat-icon>login</mat-icon>Register</button>
-          <button mat-button (click)="resetForm()"><mat-icon>cancel</mat-icon>Cancel</button>
+          <button mat-button (click)="onSubmitRegister()" class="btn_register"><mat-icon>person_add</mat-icon>Register</button>
+          <button mat-button (click)="resetForm()" class="btn_cancel mx-2"><mat-icon>cancel</mat-icon>Cancel</button>
            </mat-card-actions>
+           <mat-card-footer>
+            <p class="text-center"><span class="text-primary">Existing Users???</span><a routerLink="/login" mat-button><mat-icon>login</mat-icon>Login</a></p>
+           </mat-card-footer>
       </mat-card>
     </div>
 </div>

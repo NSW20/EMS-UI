@@ -1,3 +1,44 @@
 .spacer{
     flex: 1 1 auto;
 }
+.menu-color{
+    background-color: #1976d2;
+    color: #FFFFFF;
+}
+.menu-button{
+    color: white !important;
+}
+.menu-button:hover{
+  background-color: #1565c0;
+  color: white;
+}
+.table-style{
+    background-color:#2C3E50;
+    color: #FFFFFF;
+}
+.table-data:hover{
+    background-color: #2C3E50;
+    color: #FFFFFF;
+    transform: translateX(5px);
+}
+.edit-btn{
+    color:#FFFFFF;
+    background-color: #1976d2;
+}
+.edit-remove{
+        color: #FFFFFF;
+    background-color: #d32f2f ;
+}
+.edit-btn:hover{
+    transform: scale(1.1);
+}
+.edit-remove:hover{
+    transform:scale(1.1);
+}
+.header-color{
+    background-color: #2C3E50;
+    color: #FFFFFF;
+}
+.btn_white{
+    color: white;
+}
