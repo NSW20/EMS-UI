@@ -1,6 +1,8 @@
 # Employee Management System
 
 EMS is a standalone Angular application for managing authentication, departments, and designations. The frontend communicates with an ASP.NET-style REST API and uses JWT authentication for protected administration features.
+<img width="1902" height="900" alt="image" src="https://github.com/user-attachments/assets/3f2c257d-7ed1-4896-a7e7-18033fde483f" />
+
 
 ## Implemented Features
 
