@@ -1,0 +1,28 @@
+
+.table-style{
+    background-color:#2C3E50;
+    color: #FFFFFF;
+}
+.table-data:hover{
+    background-color: #2C3E50;
+    color: #FFFFFF;
+    transform: translateX(5px);
+}
+.edit-btn{
+    color:#FFFFFF;
+    background-color: #1976d2;
+}
+.edit-remove{
+        color: #FFFFFF;
+    background-color: #d32f2f ;
+}
+.edit-btn:hover{
+    transform: scale(1.1);
+}
+.edit-remove:hover{
+    transform:scale(1.1);
+}
+.header-color{
+    background-color: #2C3E50;
+    color: #FFFFFF;
+}

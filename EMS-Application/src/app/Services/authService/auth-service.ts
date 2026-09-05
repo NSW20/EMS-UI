@@ -37,9 +37,7 @@ export class AuthService {
     getLoggedInUser():string|null{
         const token = this.tokenSignal();
         if (!token) return null;
-
         const decoded: any = jwtDecode(token);
-
         return decoded["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name"]
             || decoded.name
             || null;

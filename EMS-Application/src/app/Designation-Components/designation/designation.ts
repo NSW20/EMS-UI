@@ -13,7 +13,7 @@ import { ChangeDetectorRef } from '@angular/core';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatError } from "@angular/material/form-field";
 @Component({
-  imports: [MatButtonModule, MatIconModule, MatProgressSpinnerModule, MatTableModule, MatDialogModule, MatPaginator, MatError],
+  imports: [MatButtonModule, MatIconModule, MatProgressSpinnerModule, MatTableModule, MatDialogModule, MatPaginator],
   selector: 'app-designation',
   styleUrl: './designation.css',
   templateUrl: './designation.html',

@@ -1,0 +1,58 @@
+<h2 mat-dialog-title>Add Employee</h2>
+<mat-dialog-content>
+  <form [formGroup]="employeeForm">
+    <mat-form-field appearance="outline" class="w-100">
+      <mat-label>Name</mat-label>
+      <input type="text" matInput formControlName="fullName" />
+    </mat-form-field>
+    <mat-form-field appearance="outline" class="w-100">
+      <mat-label>Email</mat-label>
+      <input type="email" matInput formControlName="email" />
+    </mat-form-field>
+    <mat-form-field appearance="outline" class="w-100">
+      <mat-label>Phone</mat-label>
+      <input type="tel" matInput formControlName="phone" />
+    </mat-form-field>
+    <mat-form-field appearance="outline" class="w-100">
+      <mat-label>DateOfJoining</mat-label>
+      <input matInput [matDatepicker]="picker" formControlName="dateOfJoining" />
+      <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+    <mat-form-field appearance="outline" class="w-100">
+      <mat-label>Department</mat-label>
+      <mat-select formControlName="departmentId">
+        <mat-option [value]="0">Choose Department</mat-option>
+        @for (department of departments; track department.departmentId) {
+          <mat-option [value]="department.departmentId">{{ department.name }}</mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field appearance="outline" class="w-100">
+      <mat-label>Designation</mat-label>
+      <mat-select formControlName="designationId">
+        <mat-option [value]="0">Choose Designation</mat-option>
+        @for (designation of designations; track designation.designationId) {
+          <mat-option [value]="designation.designationId">{{ designation.title }}</mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field appearance="outline" class="w-100">
+      <mat-label>Salary</mat-label>
+      <input type="number" matInput formControlName="salary" />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="w-100">
+      <mat-label>Status</mat-label>
+      <mat-select formControlName="status">
+        @for (status of employeeStatus; track status) {
+          <mat-option [value]="status">{{ status }}</mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
+  </form>
+  <mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close (click)="cancelAdd()"><mat-icon>cancel</mat-icon>Cancel</button>
+    <button mat-button (click)="addEmployeeSubmit()"><mat-icon>save</mat-icon>Save</button>
+  </mat-dialog-actions>
+</mat-dialog-content>
