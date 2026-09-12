@@ -1,1 +1,8 @@
-<p>employee-remove-dialog works!</p>
+<h2 mat-dialog-title>Remove Employee</h2>
+<mat-dialog-content>
+    <p>Are you sure, you want to remove <span class="fw-bold">{{employeeName}}</span>?</p>
+ <mat-dialog-actions align="end" class="mt-2">
+    <button mat-button mat-dialog-close (click)="onCancel()"><mat-icon>cancel</mat-icon>Cancel</button>
+    <button mat-button (click)="removeEmployee()"><mat-icon>save</mat-icon>Save</button>
+  </mat-dialog-actions>
+</mat-dialog-content>

@@ -1,0 +1,46 @@
+<div class="container-fluid">
+  <h2 class="mt-2 text-center header-color">Attendace</h2>
+  <div class="mt-2">
+    <button mat-button (click)="checkInSubmit()"><mat-icon>schedule</mat-icon>Check-In</button>
+  </div>
+  <table mat-table [dataSource]="attendanceDataSource" class="mt-2">
+    <ng-container matColumnDef="attendanceId">
+      <th mat-header-cell *matHeaderCellDef>Id</th>
+      <td mat-cell *matCellDef="let element">{{ element.attendanceId }}</td>
+    </ng-container>
+    <ng-container matColumnDef="employeeId">
+      <th mat-header-cell *matHeaderCellDef>Employee</th>
+      <td mat-cell *matCellDef="let element">{{ element.employeeId }}</td>
+    </ng-container>
+    <ng-container matColumnDef="date">
+      <th mat-header-cell *matHeaderCellDef>Date</th>
+      <td mat-cell *matCellDef="let element">{{ element.date| date:'dd-MMM-yyyy' }}</td>
+    </ng-container>
+    <ng-container matColumnDef="checkIn">
+      <th mat-header-cell *matHeaderCellDef>Check In</th>
+      <td mat-cell *matCellDef="let element">{{formatTime(element.checkIn) | date:'h:mm a' }}</td>
+    </ng-container>
+    <ng-container matColumnDef="checkOut">
+      <th mat-header-cell *matHeaderCellDef>Check Out</th>
+      <td mat-cell *matCellDef="let element">{{ formatTime(element.checkOut) | date:'h:mm a'  }}</td>
+    </ng-container>
+    <ng-container matColumnDef="status">
+      <th mat-header-cell *matHeaderCellDef>Status</th>
+      <td mat-cell *matCellDef="let element">
+      <span class="badge" [ngClass]="{
+        'badge-success':element.status==='Present',
+        'badge-danger':element.status==='Absent',
+        'badge-warning':element.status==='HalfDay'
+      }">{{element.status}}</span>
+    </td>
+    </ng-container>
+    <ng-container matColumnDef="Action">
+      <th mat-header-cell *matHeaderCellDef>Action</th>
+      <td mat-cell *matCellDef="let element">
+        <button mat-button class="edit-btn" (click)="onCheckOut(element)"><mat-icon>logout</mat-icon>Check-Out</button>
+      </td>
+    </ng-container>
+    <tr mat-header-row *matHeaderRowDef="tableColumns" class="table-style"></tr>
+    <tr mat-row *matRowDef="let row;columns:tableColumns"  class="table-data"></tr>
+  </table>
+</div>

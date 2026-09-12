@@ -42,6 +42,13 @@ export class AuthService {
             || decoded.name
             || null;
     }
+    getLoggedInUserID():string|null{
+        const token=this.tokenSignal();
+        if(!token) return null;
+        const decode:any=jwtDecode(token);
+        return decode["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier"]||
+         decode.nameidentifier||decode.null
+    }
    setToken(token: string | null): void {
     if (token) localStorage.setItem('authToken', token);
     else localStorage.removeItem('authToken');

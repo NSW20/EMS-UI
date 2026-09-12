@@ -102,6 +102,7 @@ export class EmployeeAddDialog implements OnInit {
         }
       },
       error: (err) => {
+
         console.log('error occured while fetching users');
       },
     });
@@ -136,12 +137,13 @@ export class EmployeeAddDialog implements OnInit {
                 }
               },
               error: (err) => {
+                 this.snack.open('Some error occured while adding employee','close',{duration:3000})
                 this.dialogRef.close(false);
               },
             });
             console.log(succ.data);
           }
-        },
+        }
       });
     }
   }

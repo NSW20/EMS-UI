@@ -4,14 +4,23 @@
     <mat-form-field appearance="outline" class="w-100">
       <mat-label>Name</mat-label>
       <input type="text" matInput formControlName="fullName" />
+      @if(employeeForm.get('fullName')?.hasError('required')){
+        <mat-error>Please enter your name</mat-error>
+      }
     </mat-form-field>
     <mat-form-field appearance="outline" class="w-100">
       <mat-label>Email</mat-label>
       <input type="email" matInput formControlName="email" />
+            @if(employeeForm.get('email')?.hasError('required')){
+        <mat-error>Please enter your email</mat-error>
+      }
     </mat-form-field>
     <mat-form-field appearance="outline" class="w-100">
       <mat-label>Phone</mat-label>
       <input type="tel" matInput formControlName="phone" />
+            @if(employeeForm.get('phone')?.hasError('required')){
+        <mat-error>Please enter your phone</mat-error>
+      }
     </mat-form-field>
     <mat-form-field appearance="outline" class="w-100">
       <mat-label>DateOfJoining</mat-label>

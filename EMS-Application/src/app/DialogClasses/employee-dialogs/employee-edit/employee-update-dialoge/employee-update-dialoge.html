@@ -1,1 +1,80 @@
-<p>employee-update-dialoge works!</p>
+<h2 mat-dialog-title>Edit Employee</h2>
+<mat-dialog-content>
+  <form [formGroup]="editEmployeeForm">
+
+    <mat-form-field class="w-100" appearance="outline">
+      <mat-label>Id</mat-label>
+      <input type="number" matInput formControlName="employeeId" readonly/>
+    </mat-form-field>
+
+    <mat-form-field class="w-100" appearance="outline">
+      <mat-label>Name</mat-label>
+      <input type="text" matInput formControlName="fullName"/>
+    </mat-form-field>
+
+    <mat-form-field class="w-100" appearance="outline">
+      <mat-label>Email</mat-label>
+      <input type="email" matInput formControlName="email"/>
+    </mat-form-field>
+
+    <mat-form-field class="w-100" appearance="outline">
+      <mat-label>Phone</mat-label>
+      <input type="tel" matInput formControlName="phone"/>
+    </mat-form-field>
+
+    <mat-form-field class="w-100" appearance="outline">
+      <mat-label>Date Of Joining</mat-label>
+       <input  matInput [matDatepicker]="picker" formControlName="dateOfJoining"/>
+       <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+       <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+
+    <mat-form-field class="w-100" appearance="outline">
+      <mat-label>Department</mat-label>
+      <mat-select formControlName="departmentId">
+           @for(dept of departmentList;track dept.departmentId){
+            <mat-option [value]="dept.departmentId">{{dept.name}}</mat-option>
+           }
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field class="w-100" appearance="outline">
+    <mat-label>Designation</mat-label>
+        <mat-select formControlName="designationId">
+            @for(designation of designationList;track designation.designationId){
+                <mat-option [value]="designation.designationId">{{designation.title}}</mat-option>
+            }
+        </mat-select>
+    </mat-form-field>
+
+    <mat-form-field class="w-100" appearance="outline">
+      <mat-label>salary</mat-label>
+      <input type="number" matInput formControlName="salary"/>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="w-100">
+      <mat-label>Status</mat-label>
+      <mat-select formControlName="status">
+        @for (status of employeeStatus; track status) {
+          <mat-option [value]="status">{{ status }}</mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field class="w-100" appearance="outline">
+    <mat-label>User</mat-label>
+        <mat-select formControlName="userId">
+            @for(user of usersList;track user.id){
+                <mat-option [value]="user.id">{{user.name}}</mat-option>
+            }
+        </mat-select>
+    </mat-form-field>
+
+  </form>
+ <mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close (click)="cancelEdit()"><mat-icon>cancel</mat-icon>Cancel</button>
+    <button mat-button (click)="updateEmployeeSubmit()"><mat-icon>save</mat-icon>Save</button>
+  </mat-dialog-actions>
+</mat-dialog-content>
+
+

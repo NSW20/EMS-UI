@@ -49,7 +49,7 @@ export class EmployeeComponents implements OnInit {
         next:(succ)=>{
           if(succ.statusCode===200){
             this.employeeData=succ.data;
-            this.snackBar.open('Employees have been fetched successfully','close',{duration:3000})
+            // this.snackBar.open('Employees have been fetched successfully','close',{duration:3000})
             this.cdk.detectChanges();
           }
         },

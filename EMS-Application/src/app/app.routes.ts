@@ -8,6 +8,7 @@ import { ResetPassword } from './auth-component/ResetPassword/reset-password/res
 import { ForgotPassword } from './auth-component/forgot-password/forgot-password';
 import { LogoutComponent } from './DialogClasses/logout-component/logout-component';
 import { EmployeeComponents } from './employee-components/employee-components';
+import { AttendanceComponents } from './attendance-components/attendance-components';
 
 export const routes: Routes = [
     {path:'designation',component:Designation,canActivate:[authGuardGuard],data:{role:'Admin'}},
@@ -18,5 +19,6 @@ export const routes: Routes = [
     {path:'',redirectTo:'register',pathMatch:'full'},
     {path:'resetpassword',component:ResetPassword},
      {path:'forgotpassword',component:ForgotPassword},
-     {path:'logout',component:LogoutComponent}
+     {path:'logout',component:LogoutComponent},
+     {path:'attendance',component:AttendanceComponents}
 ];

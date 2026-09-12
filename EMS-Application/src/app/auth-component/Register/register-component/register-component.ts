@@ -9,7 +9,7 @@ import { NonNullableFormBuilder } from '@angular/forms';
 import { AuthService } from '../../../Services/authService/auth-service';
 import { MatSnackBar,MatSnackBarModule } from '@angular/material/snack-bar';
 import { ChangeDetectorRef } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { Route, Router, RouterModule } from '@angular/router';
 @Component({
   imports: [MatCardModule,MatFormFieldModule,MatInputModule,ReactiveFormsModule,MatButtonModule,MatIconModule,RouterModule],
   selector: 'app-register-component',
@@ -21,6 +21,7 @@ export class RegisterComponent {
     private authService:AuthService=inject(AuthService);
     private cdk:ChangeDetectorRef=inject(ChangeDetectorRef);
     private snack:MatSnackBar=inject(MatSnackBar);
+    private route:Router=inject(Router);
     registerForm=this.nfb.group({
           name:this.nfb.control('',{validators:[Validators.required]}),
           username:this.nfb.control('',{validators:[Validators.required]}),
@@ -45,7 +46,8 @@ export class RegisterComponent {
         this.authService.registerUser(registerUser).subscribe({
           next:(succ)=>{
              if(succ.statusCode===200){
-              this.snack.open('Registration done.');
+              this.snack.open('Registration done.','close',{duration:3000});
+               this.route.navigate(['/login']);
               this.cdk.detectChanges();
              }
           }

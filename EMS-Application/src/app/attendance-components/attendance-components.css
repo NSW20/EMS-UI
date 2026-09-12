@@ -1,0 +1,52 @@
+
+.table-style{
+    background-color:#2C3E50;
+    color: #FFFFFF;
+}
+.table-data:hover{
+    background-color: #2C3E50;
+    color: #FFFFFF;
+    transform: translateX(5px);
+}
+.edit-btn{
+    color:#FFFFFF;
+    background-color: #1976d2;
+}
+.edit-remove{
+        color: #FFFFFF;
+    background-color: #d32f2f ;
+}
+.edit-btn:hover{
+    transform: scale(1.1);
+}
+.edit-remove:hover{
+    transform:scale(1.1);
+}
+.header-color{
+    background-color: #2C3E50;
+    color: #FFFFFF;
+}
+.chip-color{
+    background-color: green;
+    color: white;
+}
+.badge {
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-size: 13px;
+  font-weight: 500;
+  color: #fff;
+}
+
+.badge-success {
+  background-color: #198754;
+}
+
+.badge-danger {
+  background-color: #dc3545;
+}
+
+.badge-warning {
+  background-color: #ffc107;
+  color: #212529;   /* dark text on light yellow, warna readable nahi hoga */
+}
