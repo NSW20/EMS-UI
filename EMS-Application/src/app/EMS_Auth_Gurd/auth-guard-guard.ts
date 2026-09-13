@@ -5,13 +5,16 @@ import { inject } from '@angular/core';
 export const authGuardGuard: CanActivateFn = (route, state) => {
   const auth=inject(AuthService);
   const token=localStorage.getItem('authToken');
-  const fetchRole=auth.getUserRole();
+  const fetchRole:string|null=auth.getUserRole();
   const router=inject(Router);
-  if(!token)return false;
-  const requiredRole=route.data['role'];
-  if(requiredRole &&requiredRole!==fetchRole){
+  if(!token){
     router.navigate(['/login']);
-    return false;
+     return false;
   }
+  // const requiredRole:string[]=route.data['role'];
+  // if(requiredRole&&fetchRole &&requiredRole.includes(fetchRole)){
+  //   router.navigate(['/login']);
+  //   return false;
+  // }
   return true;
 };

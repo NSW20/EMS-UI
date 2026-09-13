@@ -11,9 +11,9 @@ import { EmployeeComponents } from './employee-components/employee-components';
 import { AttendanceComponents } from './attendance-components/attendance-components';
 
 export const routes: Routes = [
-    {path:'designation',component:Designation,canActivate:[authGuardGuard],data:{role:'Admin'}},
-    {path:'department',component:DepartmentComponents,canActivate:[authGuardGuard],data:{role:'Admin'}},
-    {path:'employee',component:EmployeeComponents,canActivate:[authGuardGuard],data:{role:'Admin'}},
+    {path:'designation',component:Designation,canActivate:[authGuardGuard]},
+    {path:'department',component:DepartmentComponents,canActivate:[authGuardGuard]},
+    {path:'employee',component:EmployeeComponents,canActivate:[authGuardGuard]},
     {path:'register',component:RegisterComponent},
     {path:'login',component:LoginComponent},
     {path:'',redirectTo:'register',pathMatch:'full'},

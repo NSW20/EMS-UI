@@ -41,6 +41,7 @@ export class AttendanceChekoutDialog implements OnInit{
       }
     })
   }
+
   checkOutSubmit():void{
     const user:UserDetailsDTO={
       userId:this.loggedInUserId

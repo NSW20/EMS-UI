@@ -1,0 +1,54 @@
+
+<mat-card appearance="outlined">
+    <mat-card-header>
+        <div class="avatar mb-2 mx-3">
+            <h2 class="p-2 mt-auto">{{profileIcon}}</h2>
+        </div>
+        <div>
+            <h2>{{data.fullName}}</h2>
+            <p class="fs-6">Employee Profile</p>
+        </div>
+    </mat-card-header>
+    <mat-card-content>
+         <div class="row">
+              <div class="col-md-6">
+                 <p>Email</p>
+              </div>
+              <div class="col-md-6">
+                 <p>{{data.email}}</p>
+              </div>
+          </div>
+
+          <div class="row">
+              <div class="col-md-6">
+                 <p>Contact</p>
+              </div>
+              <div class="col-md-6">
+                 <p>{{data.phone}}</p>
+              </div>
+          </div>
+
+          <div class="row">
+              <div class="col-md-6">
+                 <p>Date of Joining</p>
+              </div>
+              <div class="col-md-6">
+                 <p>{{data.dateOfJoining|date:'dd-MMM-yyyy'}}</p>
+              </div>
+          </div>
+
+          <div class="row">
+              <div class="col-md-6">
+                 <p>Salary</p>
+              </div>
+              <div class="col-md-6">
+                 <p>{{data.salary|currency:'INR'}}</p>
+              </div>
+          </div>
+    </mat-card-content>
+    <mat-card-actions align="start">
+      <button mat-button><mat-icon>person</mat-icon> Edit Profile</button>
+      <button mat-button><mat-icon>settings</mat-icon> Reset password</button>
+      <button mat-button mat-dialog-close><mat-icon>cancel</mat-icon> Cancel</button>
+    </mat-card-actions>
+</mat-card>

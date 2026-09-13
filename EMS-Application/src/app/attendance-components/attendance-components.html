@@ -37,7 +37,10 @@
     <ng-container matColumnDef="Action">
       <th mat-header-cell *matHeaderCellDef>Action</th>
       <td mat-cell *matCellDef="let element">
-        <button mat-button class="edit-btn" (click)="onCheckOut(element)"><mat-icon>logout</mat-icon>Check-Out</button>
+        <button mat-button [ngClass]="{
+          'edit-btn':element.checkOut===null,
+          'edit-btn-disable':element.checkOut!==null ||findHoursBetweenCurrentAndChekinTime(element.checkIn, element.date) >= 10
+        }" (click)="onCheckOut(element)" [disabled]="element.checkOut!==null ||findHoursBetweenCurrentAndChekinTime(element.checkIn, element.date) >= 10"><mat-icon>logout</mat-icon>Check-Out</button>
       </td>
     </ng-container>
     <tr mat-header-row *matHeaderRowDef="tableColumns" class="table-style"></tr>

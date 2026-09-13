@@ -1,3 +1,4 @@
+
 <mat-toolbar class="menu-color">
   <span>EMS</span>
   <span class="spacer"></span>
@@ -5,13 +6,18 @@
      <button mat-button routerLink="/register" class="menu-button"><mat-icon>person_add</mat-icon>Register</button>
       <button mat-button routerLink="/login" class="menu-button"><mat-icon>login</mat-icon>Login</button>
   }
-  @else {
-  <button mat-button class="fw-bold fs-6" matTooltip="Logged In User"><mat-icon>sentiment_satisfied</mat-icon>Welcome {{authService.getLoggedInUser()}} </button>
+  @else if(authService.getUserRole()==='Admin') {
   <button mat-button routerLink="/designation" class="menu-button btn_white"><mat-icon>badge</mat-icon>Designation</button>
   <button mat-button routerLink="/department" class="menu-button"><mat-icon>apartment</mat-icon>Department</button>
    <button mat-button routerLink="/employee" class="menu-button btn_white"><mat-icon>person</mat-icon>Employee</button>
    <button mat-button routerLink="/attendance" class="menu-button btn_white"><mat-icon>schedule</mat-icon>Attendace</button>
   <button mat-button (click)="openLogout()" class="menu-button"> <mat-icon>logout</mat-icon>Logout</button>
+    <button mat-button class="fw-bold fs-6" matTooltip="Logged In User"  (click)="fetchEmployee()"><mat-icon>sentiment_satisfied</mat-icon>Welcome {{authService.getLoggedInUser()}} </button>
+  }
+  @else {
+   <button mat-button routerLink="/attendance" class="menu-button btn_white"><mat-icon>schedule</mat-icon>Attendace</button>
+   <button mat-button (click)="openLogout()" class="menu-button"> <mat-icon>logout</mat-icon>Logout</button>
+   <button mat-button class="fw-bold fs-6" matTooltip="Logged In User" (click)="fetchEmployee()"><mat-icon>sentiment_satisfied</mat-icon>Welcome {{authService.getLoggedInUser()}} </button>
   }
 </mat-toolbar>
 

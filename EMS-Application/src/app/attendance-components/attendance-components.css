@@ -12,6 +12,14 @@
     color:#FFFFFF;
     background-color: #1976d2;
 }
+.edit-btn-disable{
+    color:#FFFFFF;
+    background-color: #c0c0c0;
+}
+.edit-btn-disable:hover{
+    color:#FFFFFF;
+    background-color: #c0c0c0;
+}
 .edit-remove{
         color: #FFFFFF;
     background-color: #d32f2f ;
@@ -49,4 +57,11 @@
 .badge-warning {
   background-color: #ffc107;
   color: #212529;   /* dark text on light yellow, warna readable nahi hoga */
+}
+.dark-mode {
+  background-color: #121212;   /* near-black base */
+  color: #E5E5E5;              /* off-white text */
+  border: 1px solid #2A2A2A;   /* subtle border */
+  padding: 16px;
+  border-radius: 8px;
 }

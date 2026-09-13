@@ -2,15 +2,15 @@ import { HttpClient } from '@angular/common/http';
 import { Service, inject } from '@angular/core';
 import { Observable } from 'rxjs';
 import { APIResponseWrapper } from '../../Models/designation_model';
+import { AuthService } from '../authService/auth-service';
 
 @Service()
 export class AttendanceService {
   private httpClient: HttpClient = inject(HttpClient);
   private baseUrl: string = 'http://localhost:5103/api/v1/Attendace/';
-
-  getAllAttendance(): Observable<APIResponseWrapper<AttendaceDTO[]>> {
+  getAllAttendance(employeeId?:number): Observable<APIResponseWrapper<AttendaceDTO[]>> {
     return this.httpClient.get<APIResponseWrapper<AttendaceDTO[]>>(
-      this.baseUrl + 'GetAllAttendace',
+      this.baseUrl + `GetAllAttendace/${employeeId}`
     );
   }
   applyAttendance(addAttendace: AttendaceAddDTO): Observable<APIResponseWrapper<AttendaceDTO>> {

@@ -1,0 +1,19 @@
+.avatar{
+    width: 20%;
+    height: 20%;
+    border-radius: 50%;
+    background-color: gray;
+    text-align: center;
+    color: white;
+}
+.margin-bot{
+    margin-bottom: 20px;
+}
+.profile-row {
+  display: flex;
+  align-items: center;
+  margin-bottom: 8px;
+}
+.profile-row mat-icon {
+  margin-right: 8px;
+}
