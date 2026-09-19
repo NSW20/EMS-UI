@@ -43,7 +43,8 @@ export class EmployeeAddDialog implements OnInit {
   private dialogRef: MatDialogRef<EmployeeAddDialog> = inject(MatDialogRef<EmployeeAddDialog>);
   departments: DepartmentDTO[] = [];
   designations: DesignationModel[] = [];
-
+  managersDetails:employeeDTO[]=[];
+  designationDetails:DesignationModel[]=[];
   employeeForm = this.nfb.group({
     fullName: this.nfb.control('', { validators: [Validators.required] }),
     email: this.nfb.control('', { validators: [Validators.required, Validators.email] }),
@@ -54,11 +55,13 @@ export class EmployeeAddDialog implements OnInit {
     salary: this.nfb.control('', { validators: [Validators.required] }),
     status: this.nfb.control('Active', { validators: [Validators.required] }),
     userId: this.nfb.control(''),
+    managerId:this.nfb.control(0)
   });
 
   ngOnInit(): void {
     this.loadDepartments();
     this.loadDesignations();
+    this.loadAllManagers();
   }
 
   clearEmployeeForm(): void {
@@ -76,12 +79,27 @@ export class EmployeeAddDialog implements OnInit {
       },
     });
   }
+  
+  loadAllManagers():void{
+    this.empService.getAllEmployees().subscribe({
+      next:(succ)=>{
+        if(succ.statusCode===200){
+          console.log('hello managers');
+            this.managersDetails=succ.data.filter(x=>x.designationId===18 || x.designationId===19);
+        }
+      },
+      error:(err)=>{
+        console.log(err);
+      }
+    })
+  }
 
   loadDesignations(): void {
     this.designationService.GetAllDesignations().subscribe({
       next: (succ) => {
         if (succ.statusCode === 200) {
           this.designations = succ.data;
+          this.designationDetails=succ.data.filter(x=>x.designationId===18 || x.designationId===19)
           console.log(this.designations);
         }
       },
@@ -112,6 +130,7 @@ export class EmployeeAddDialog implements OnInit {
     console.log('add emp1');
     if (this.employeeForm.valid) {
       const emailId: string = this.employeeForm.get('email')?.value!;
+      console.log(emailId)
       this.empService.getUserDetails(emailId).subscribe({
         next: (succ) => {
           if (succ.statusCode === 200) {
@@ -126,8 +145,12 @@ export class EmployeeAddDialog implements OnInit {
               salary: this.employeeForm.get('salary')?.value!,
               status: this.employeeForm.get('status')?.value!,
               userId: succ.data.id,
+              managerId:Number(this.employeeForm.get('managerId')?.value!)
             };
+            console.log(succ.data.id)
+            console.log(succ.data.userName)
                console.log('Add employee1');
+               console.log(addEmp);
             this.empService.addNewEmployee(addEmp).subscribe({
               next: (succ) => {
                 if (succ.statusCode === 200) {

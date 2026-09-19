@@ -9,7 +9,8 @@ departmentId:number,
 designationId:number,
 salary:string,
 status:string,
-userId:string
+userId:string,
+managerId?:number
 }
 
 interface employeeAddDTO{
@@ -21,5 +22,6 @@ departmentId:number,
 designationId:number,
 salary:string,
 status:string,
-userId:string
+userId?:string,
+managerId:number
 }

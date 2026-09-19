@@ -1,0 +1,81 @@
+
+.table-style{
+    background-color:#2C3E50;
+    color: #FFFFFF;
+}
+.table-data:hover{
+    background-color: #2C3E50;
+    color: #FFFFFF;
+    transform: translateX(5px);
+}
+.edit-btn{
+    color:#FFFFFF;
+    background-color: #1976d2;
+}
+.edit-btn-disable{
+    color:#FFFFFF;
+    background-color: #c0c0c0;
+}
+.edit-btn-disable:hover{
+    color:#FFFFFF;
+    background-color: #c0c0c0;
+}
+.edit-remove{
+        color: #FFFFFF;
+    background-color: #d32f2f ;
+}
+.edit-btn:hover{
+    transform: scale(1.1);
+}
+.edit-remove:hover{
+    transform:scale(1.1);
+}
+.header-color{
+    background-color: #2C3E50;
+    color: #FFFFFF;
+}
+.chip-color{
+    background-color: green;
+    color: white;
+}
+.badge {
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-size: 13px;
+  font-weight: 500;
+  color: #fff;
+}
+
+.badge-success {
+  background-color: #198754;
+}
+
+.badge-danger {
+  background-color: #dc3545;
+}
+
+.badge-warning {
+  background-color: #ffc107;
+  color: #212529;   /* dark text on light yellow, warna readable nahi hoga */
+}
+.dark-mode {
+  background-color: #121212;   /* near-black base */
+  color: #E5E5E5;              /* off-white text */
+  border: 1px solid #2A2A2A;   /* subtle border */
+  padding: 16px;
+  border-radius: 8px;
+}
+.badge-casual {
+  background-color: #20c997; /* teal */
+  color: white;
+}
+
+.badge-earned {
+  background-color: #6f42c1; /* indigo */
+  color: white;
+}
+
+.badge-sick {
+  background-color: #fd7e14; /* orange */
+  color: #212529; /* dark text for readability */
+}

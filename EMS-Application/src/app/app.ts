@@ -35,7 +35,7 @@ employeeDetails!:employeeDTO;
    fetchEmployee():void{
      const userIdFetched:string|null=this.authService.getLoggedInUserID();
      console.log(userIdFetched);
-    this.empService.getUserDetails(userIdFetched).subscribe({
+    this.empService.getUserDetailsByUserId(userIdFetched).subscribe({
       next:(succ)=>{
         if(succ.statusCode===200){
               const user:UserDetailsDTO={

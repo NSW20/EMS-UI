@@ -28,6 +28,9 @@ export class EmployeeService {
   getUserDetails(userId:string|null):Observable<APIResponseWrapper<UserModel>>{
     return this.httpClient.get<APIResponseWrapper<UserModel>>(this.baseURL+`GetUserDetails?userId=${userId}`)
   }
+    getUserDetailsByUserId(userId:string|null):Observable<APIResponseWrapper<UserModel>>{
+    return this.httpClient.get<APIResponseWrapper<UserModel>>(this.baseURL+`GetUserDetailsByUserId?userId=${userId}`)
+  }
   getAllUsers():Observable<APIResponseWrapper<UserModel[]>>{
     return this.httpClient.get<APIResponseWrapper<UserModel[]>>(this.baseURL+'GetAllUsersDetails');
   }
