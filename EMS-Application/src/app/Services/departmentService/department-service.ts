@@ -1,7 +1,7 @@
 import { Service,inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { APIResponseWrapper } from '../../Models/designation_model';
+import { APIResponseWrapper, PaggedResult } from '../../Models/designation_model';
 
 @Service()
 export class DepartmentService {
@@ -22,5 +22,8 @@ export class DepartmentService {
     }
     getDepartment(deptId:number):Observable<APIResponseWrapper<DepartmentDTO>>{
             return this.httpClient.get<APIResponseWrapper<DepartmentDTO>>(this.apiBaseUrl+`GetADepartment?deptId=${deptId}`);
+   }
+   getPaginatedDepartments(totalPages:number,pageNumber:number=1,searchText?:string,sortOrder:string='ASC',sortColumn:string='title'):Observable<PaggedResult<DepartmentDTO[]>>{
+    return this.httpClient.get<PaggedResult<DepartmentDTO[]>>(this.apiBaseUrl+`GetAllDepartmentPagginated?sortOrder=${sortOrder}&pageSize=${totalPages}&pageNumber=${pageNumber}&sortColumns=${sortColumn}&searchtext=${searchText}`)
    }
 }

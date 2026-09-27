@@ -13,3 +13,9 @@ export interface APIResponseWrapper<T>{
     data:T,
     errors?:any
 }
+export  interface PaggedResult<T> {
+  data: T;
+  totalPage: number;
+  statusCode: number;
+  message: string;
+}

@@ -1,17 +1,17 @@
 <div class="container-fluid">
    <h2 class="text-center mt-2 header-color">Department</h2>
    <button mat-button (click)="openAddDialog()" class="mb-3"><mat-icon>add</mat-icon>Add Department</button>
-<table mat-table [dataSource]="departments">
+<table mat-table [dataSource]="datasourceDepartments" matSort >
    <ng-container matColumnDef="departmentId">
-      <th mat-header-cell *matHeaderCellDef>Id</th>
+      <th mat-header-cell *matHeaderCellDef mat-sort-header="departmentId">Id</th>
       <td mat-cell *matCellDef="let element">{{element.departmentId}}</td>
    </ng-container>
-      <ng-container matColumnDef="name">
-      <th mat-header-cell *matHeaderCellDef>Name</th>
+      <ng-container matColumnDef="name" >
+      <th mat-header-cell *matHeaderCellDef mat-sort-header="name">name</th>
       <td mat-cell *matCellDef="let element">{{element.name}}</td>
    </ng-container>
       <ng-container matColumnDef="description">
-      <th mat-header-cell *matHeaderCellDef>Description</th>
+      <th mat-header-cell *matHeaderCellDef mat-sort-header="description">Description</th>
       <td mat-cell *matCellDef="let element">{{element.description}}</td>
    </ng-container>
       <ng-container matColumnDef="actions">
@@ -24,4 +24,7 @@
    <tr mat-header-row *matHeaderRowDef="departmentColumns" class="table-style"></tr>
    <tr mat-row *matRowDef="let row;columns:departmentColumns" class="table-data"></tr>
 </table>
+<mat-paginator [pageSizeOptions]="pageSizeOptions" [length]="totalItems" [pageSize]="pageSize" (page)="onPageChange($event)">
+
+</mat-paginator>
 </div>

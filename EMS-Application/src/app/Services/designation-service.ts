@@ -1,7 +1,7 @@
 import { Service,inject} from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { APIResponseWrapper, DesignationAddModel, DesignationModel } from '../Models/designation_model';
+import { APIResponseWrapper, DesignationAddModel, DesignationModel, PaggedResult } from '../Models/designation_model';
 @Service()
 export class DesignationService {
    private httpClient:HttpClient=inject(HttpClient);
@@ -21,5 +21,9 @@ export class DesignationService {
     }
     FindADesignation(designationId:number):Observable<APIResponseWrapper<DesignationModel>>{
         return this.httpClient.get<APIResponseWrapper<DesignationModel>>(this.serviceBaseUrl+`GetADesignation?designationId=${designationId}`);
+    }
+
+    getDesignationWithPaggination(totalPages:number,pageNumber:number=1,searchText?:string,sortOrder:string='ASC',sortColumn:string='title'):Observable<PaggedResult<DesignationModel[]>>{
+        return this.httpClient.get<PaggedResult<DesignationModel[]>>(this.serviceBaseUrl+`GetAllDesignationsWithPaggination?sortOrder=${sortOrder}&sortColumn=${sortColumn}&pageNumber=${pageNumber}&pageSize=${totalPages}&searchText=${searchText}`)
     }
 }
