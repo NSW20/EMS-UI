@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, inject, OnInit, viewChild, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, inject, OnDestroy, OnInit, viewChild, ViewChild } from '@angular/core';
 import { DesignationService } from '../../Services/designation-service';
 import { APIResponseWrapper, DesignationModel } from '../../Models/designation_model';
 import { MatButtonModule } from '@angular/material/button';
@@ -10,16 +10,19 @@ import { AddDialog } from '../../DialogClasses/add-dialog/add-dialog';
 import { EditDialog } from '../../DialogClasses/edit-dialog/edit-dialog';
 import { RemoveDialog } from '../../DialogClasses/remove-dialog/remove-dialog';
 import { ChangeDetectorRef } from '@angular/core';
-import { Subject } from 'rxjs';
+import { debounceTime, distinctUntilChanged, Subject, takeUntil } from 'rxjs';
 import { MatPaginator, MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 import {  MatSortModule,MatSort,Sort } from '@angular/material/sort';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { FormsModule } from '@angular/forms';
 @Component({
-  imports: [MatButtonModule, MatPaginatorModule,MatSortModule,MatIconModule,MatPaginator, MatProgressSpinnerModule, MatTableModule, MatDialogModule, MatPaginator],
+  imports: [MatButtonModule,FormsModule,MatFormFieldModule,MatInputModule, MatPaginatorModule,MatSortModule,MatIconModule,MatPaginator, MatProgressSpinnerModule, MatTableModule, MatDialogModule, MatPaginator],
   selector: 'app-designation',
   styleUrl: './designation.css',
   templateUrl: './designation.html',
 })
-export class Designation implements OnInit,AfterViewInit {
+export class Designation implements OnInit,AfterViewInit,OnDestroy {
 
      private designationService:DesignationService=inject(DesignationService);
      private dialog:MatDialog=inject(MatDialog);
@@ -31,8 +34,11 @@ export class Designation implements OnInit,AfterViewInit {
     sortOrder:'DESC'|'ASC'='ASC'
     pageNumber:number=1
     totalItems!:number
-    searchText:string=''
-
+    searchText: string = '';
+    private searchSubject = new Subject<string>();
+    private destroy$=new Subject<void>()
+    private searchSubscriptionInitialized = false;
+    isLoading:boolean=false;
       // Pagination / sorting defaults
     pageSize = 10;
     pageSizeOptions = [5, 10, 25, 50];
@@ -45,8 +51,22 @@ export class Designation implements OnInit,AfterViewInit {
   ngOnInit(): void {
     this.dataSource.paginator=this.paginator
     this.dataSource.sort=this.sort;
+    this.searchSubject.pipe(
+      debounceTime(400),distinctUntilChanged(),takeUntil(this.destroy$)
+    ).subscribe((term)=>{
+      this.searchText=term
+      this.pageIndex=0
+      if(this.paginator){this.paginator.pageIndex=0}
+      this.loadDesignationWithPaggination()
+    });
+
+
     this.loadDesignationWithPaggination();
    }
+ ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
+  }
   ngAfterViewInit(): void {
    this.sort.sortChange.subscribe((s:Sort)=>{
      const  columnMap:Record<string,string>={
@@ -86,18 +106,19 @@ export class Designation implements OnInit,AfterViewInit {
 
    loadDesignationWithPaggination():void{
     this.pageNumber=this.pageIndex+1;
-    
+    this.isLoading=true;
     this.designationService.getDesignationWithPaggination(this.pageSize,this.pageNumber,this.searchText,this.sortOrder,this.sortColumn).subscribe({
       next:(succ)=>{
         if(succ.statusCode===200){
           this.dataSource.data=succ.data
           this.totalItems=succ.totalPage
+           this.isLoading=false;
           this.cdk.detectChanges();
           console.log(this.designationData)
         }
       },
       error:(err)=>{
-        console.log(err)
+          this.isLoading=false;
       }
     })
    }
@@ -108,7 +129,7 @@ export class Designation implements OnInit,AfterViewInit {
     });
     dialogRef.afterClosed().subscribe(result=>{
       if(result){
-       this.loadAllDesignation();
+       this.loadDesignationWithPaggination();
        this.cdk.detectChanges();
       }
     })
@@ -120,7 +141,7 @@ export class Designation implements OnInit,AfterViewInit {
     })
     dialogRef.afterClosed().subscribe(result=>{
       if(result){
-        this.loadAllDesignation();
+        this.loadDesignationWithPaggination();
         this.cdk.detectChanges();
       }
     })
@@ -132,9 +153,18 @@ export class Designation implements OnInit,AfterViewInit {
     })
     dialogRef.afterClosed().subscribe(result=>{
       if(result){
-        this.loadAllDesignation();
+        this.loadDesignationWithPaggination();
         this.cdk.detectChanges();
       }
     })
    }
+
+onSearchChange(value: string): void {
+  this.searchSubject.next(value);
+}
+
+clearSearch(): void {
+  this.searchText = '';
+  this.searchSubject.next('');
+}
 }

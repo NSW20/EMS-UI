@@ -1,5 +1,10 @@
 <div class="d-flex justify-content-center align-items-center min-vh-100">
     <div class="w-25">
+  @if (isLoading) {
+<div class="d-flex justify-content-center align-items-center min-vh-100">
+   <mat-spinner diameter="50" class="spinner-border"></mat-spinner>
+</div>
+  }
    <mat-card class="mat-card-style card-bg shadow">
         <mat-card-title class="text-center mt-10 header-color p-2 fs-3 bg-radius">Register</mat-card-title>
            <mat-card-content>

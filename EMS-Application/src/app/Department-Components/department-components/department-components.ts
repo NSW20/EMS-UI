@@ -1,4 +1,4 @@
-import { AfterViewInit, Component,inject,OnInit, viewChild, ViewChild } from '@angular/core';
+import { AfterViewInit, Component,inject,OnDestroy,OnInit, viewChild, ViewChild } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
@@ -15,24 +15,38 @@ import { MatPaginator,MatPaginatorModule,PageEvent } from '@angular/material/pag
 import { MatSort,MatSortModule,Sort  } from '@angular/material/sort';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { MatFormField, MatLabel } from '@angular/material/form-field';
+import { debounceTime, distinctUntilChanged, Subject, takeUntil } from 'rxjs';
+import { MatInputModule } from '@angular/material/input';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 @Component({
-  imports: [    // Common Angular
+  imports: [
     CommonModule,
     FormsModule,
     MatTableModule,
+    MatProgressSpinnerModule,
     MatPaginatorModule,
+    MatInputModule,
     MatSortModule,
     MatButtonModule,
     MatIconModule,
     MatTooltipModule,
     MatDialogModule,
-    MatSnackBarModule],
+    MatSnackBarModule,
+    MatFormField,
+    MatLabel
+],
   selector: 'app-department-components',
   styleUrl: './department-components.css',
   templateUrl: './department-components.html',
   standalone:true
 })
-export class DepartmentComponents implements OnInit,AfterViewInit {
+export class DepartmentComponents implements OnInit,AfterViewInit,OnDestroy {
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
+  }
+  isLoading:boolean=false;
   private cdk:ChangeDetectorRef=inject(ChangeDetectorRef);
   private departmentService:DepartmentService=inject(DepartmentService);
   private matDialogRef:MatDialog=inject(MatDialog);
@@ -44,6 +58,15 @@ export class DepartmentComponents implements OnInit,AfterViewInit {
         // connect datasource with paginator and sort
     this.datasourceDepartments.paginator = this.paginator;
     this.datasourceDepartments.sort = this.sort;
+   this.searchSubject.pipe(
+    debounceTime(300),distinctUntilChanged(),takeUntil(this.destroy$)
+   ).subscribe((term)=>{
+    this.searchText=term;
+    this.pageIndex=0;
+    if(this.paginator){this.paginator.pageIndex=0}
+    this.loadAllPagginatedDepartments();
+   })
+
     this.loadAllPagginatedDepartments();
   }
 
@@ -63,7 +86,8 @@ export class DepartmentComponents implements OnInit,AfterViewInit {
   sortColumns:string='Name'
   totalItems!:number
   searchText:string=''
-  
+  searchSubject=new Subject<string>();
+  destroy$=new Subject<void>();
   loadAllDepartments():void{
     this.departmentService.getAllDepartment().subscribe({
       next:(result)=>{
@@ -105,6 +129,7 @@ export class DepartmentComponents implements OnInit,AfterViewInit {
 
   loadAllPagginatedDepartments(): void {
     this.pageNumber = this.pageIndex + 1; // API expects 1-based
+    this.isLoading=true;
     this.departmentService.getPaginatedDepartments(this.pageSize, this.pageNumber, this.searchText, this.sortOrder, this.sortColumns)
       .subscribe({
         next: (succ) => {
@@ -114,12 +139,14 @@ export class DepartmentComponents implements OnInit,AfterViewInit {
             this.datasourceDepartments.data = this.departments;
             this.totalItems=succ.totalPage
             // }
+            this.isLoading=false;
             this.cdk.detectChanges();
           } else {
             this.matSnackBar.open('Failed to fetch departments', 'Close', { duration: 3000 });
           }
         },
         error: (err) => {
+           this.isLoading=false;
           console.error('Error fetching paginated departments', err);
           this.matSnackBar.open('Something went wrong while fetching departments', 'Close', { duration: 3000 });
         }
@@ -132,7 +159,7 @@ export class DepartmentComponents implements OnInit,AfterViewInit {
     })
     dialog.afterClosed().subscribe(result=>{
       if(result){
-        this.loadAllDepartments();
+        this.loadAllPagginatedDepartments();
         this.cdk.detectChanges();
       }
     })
@@ -144,7 +171,7 @@ export class DepartmentComponents implements OnInit,AfterViewInit {
     })
     dialog.afterClosed().subscribe(result=>{
     if(result){
-      this.loadAllDepartments();
+      this.loadAllPagginatedDepartments();
       this.cdk.detectChanges();
     }
    })
@@ -156,9 +183,17 @@ export class DepartmentComponents implements OnInit,AfterViewInit {
     })
   dialog.afterClosed().subscribe(result=>{
     if(result){
-      this.loadAllDepartments();
+      this.loadAllPagginatedDepartments();
       this.cdk.detectChanges();
     }
   })
+  }
+  onSearch(value:string):void{
+   this.searchSubject.next(value);
+   this.searchText=value;
+  }
+  clearSearch():void{
+    this.searchSubject.next('');
+    this.searchText='';
   }
 }

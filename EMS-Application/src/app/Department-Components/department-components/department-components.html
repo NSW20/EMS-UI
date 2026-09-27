@@ -1,6 +1,25 @@
 <div class="container-fluid">
    <h2 class="text-center mt-2 header-color">Department</h2>
+<div class="search-row" style="margin-bottom: 12px">
+    <mat-form-field appearance="outline" style="width: 320px">
+      <mat-label>Search departments</mat-label>
+      <input
+        matInput
+        [ngModel]="searchText"
+        (ngModelChange)="onSearch($event)"
+        placeholder="Search by name or description"
+      />
+      <button mat-icon-button matSuffix (click)="clearSearch()">
+        <mat-icon>close</mat-icon>
+      </button>
+    </mat-form-field>
+  </div>
    <button mat-button (click)="openAddDialog()" class="mb-3"><mat-icon>add</mat-icon>Add Department</button>
+     @if (isLoading) {
+    <div class="spinner-overlay">
+      <mat-spinner diameter="50"></mat-spinner>
+    </div>
+  }
 <table mat-table [dataSource]="datasourceDepartments" matSort >
    <ng-container matColumnDef="departmentId">
       <th mat-header-cell *matHeaderCellDef mat-sort-header="departmentId">Id</th>

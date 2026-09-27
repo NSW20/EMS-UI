@@ -10,8 +10,9 @@ import { AuthService } from '../../../Services/authService/auth-service';
 import { MatSnackBar,MatSnackBarModule } from '@angular/material/snack-bar';
 import { ChangeDetectorRef } from '@angular/core';
 import { Route, Router, RouterModule } from '@angular/router';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 @Component({
-  imports: [MatCardModule,MatFormFieldModule,MatInputModule,ReactiveFormsModule,MatButtonModule,MatIconModule,RouterModule],
+  imports: [MatCardModule,MatProgressSpinnerModule,MatFormFieldModule,MatInputModule,ReactiveFormsModule,MatButtonModule,MatIconModule,RouterModule],
   selector: 'app-register-component',
   styleUrl: './register-component.css',
   templateUrl: './register-component.html',
@@ -22,6 +23,7 @@ export class RegisterComponent {
     private cdk:ChangeDetectorRef=inject(ChangeDetectorRef);
     private snack:MatSnackBar=inject(MatSnackBar);
     private route:Router=inject(Router);
+    isLoading:boolean=false;
     registerForm=this.nfb.group({
           name:this.nfb.control('',{validators:[Validators.required]}),
           username:this.nfb.control('',{validators:[Validators.required]}),
@@ -33,6 +35,7 @@ export class RegisterComponent {
     })
     onSubmitRegister():void{
       console.log('register')
+      this.isLoading=true;
       if(this.registerForm.valid){
         const registerUser:Register={
           name:this.registerForm.value.name!,
@@ -46,6 +49,7 @@ export class RegisterComponent {
         this.authService.registerUser(registerUser).subscribe({
           next:(succ)=>{
              if(succ.statusCode===200){
+               this.isLoading=false;
               this.snack.open('Registration done.','close',{duration:3000});
                this.route.navigate(['/login']);
               this.cdk.detectChanges();

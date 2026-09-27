@@ -10,10 +10,10 @@ import { ChangeDetectorRef } from '@angular/core';
 import { AuthService } from '../../../Services/authService/auth-service';
 import { MatCardModule } from "@angular/material/card";
 import { CdkAriaLive } from "../../../../../node_modules/@angular/cdk/types/_a11y-module-chunk";
-
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @Component({
-  imports: [MatFormFieldModule, MatInputModule, ReactiveFormsModule, MatButtonModule, MatIconModule, MatSnackBarModule, MatCardModule, RouterLink],
+  imports: [MatFormFieldModule,MatProgressSpinnerModule, MatInputModule, ReactiveFormsModule, MatButtonModule, MatIconModule, MatSnackBarModule, MatCardModule, RouterLink],
   selector: 'app-login-component',
   styleUrl: './login-component.css',
   templateUrl: './login-component.html',
@@ -24,11 +24,13 @@ export class LoginComponent{
   private authService: AuthService = inject(AuthService);
   private nfb: NonNullableFormBuilder = inject(NonNullableFormBuilder);
   private route:Router=inject(Router);
+  isLoading:boolean=false;
   loginForm = this.nfb.group({
     email: this.nfb.control('', { validators: [Validators.required, Validators.email] }),
     password: this.nfb.control('', { validators: [Validators.required, Validators.minLength(8)] }),
   });
   onSubmitLogin(): void {
+    this.isLoading=true;
     if (this.loginForm.valid) {
       const loginModel: Login = {
         email: this.loginForm.value.email!,
@@ -37,6 +39,7 @@ export class LoginComponent{
       this.authService.loginUser(loginModel).subscribe({
         next: (succ) => {
           if (succ.statusCode === 200) {
+            this.isLoading=false;
            this.authService.setToken(succ.data);
               this.snackBar.open('Login Succeeded','close',{duration:3000});
             this.route.navigate(['/department']);
@@ -44,6 +47,7 @@ export class LoginComponent{
         },
         error: (err) => {
           console.log(err)
+           this.isLoading=false;
           this.snackBar.open('Invalid email or password','close',{duration:3000});
           this.cdk.detectChanges();
         },

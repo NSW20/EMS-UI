@@ -1,30 +1,60 @@
 <div class="container-fluid">
-   <h2 class="text-center mt-2 header-color">Designations</h2>
-   <button mat-button class="mt-2" (click)="openAddDialog()" class="mb-3"><mat-icon>add</mat-icon> New Designation</button>
-   <table mat-table [dataSource]="dataSource" matSort>
+  <h2 class="text-center mt-2 header-color">Designations</h2>
+  <div class="search-row" style="margin-bottom: 12px">
+    <mat-form-field appearance="outline" style="width: 320px">
+      <mat-label>Search Designation</mat-label>
+      <input
+        matInput
+        [ngModel]="searchText"
+        (ngModelChange)="onSearchChange($event)"
+        placeholder="Search by name or Designation"
+      />
+      <button mat-icon-button matSuffix (click)="clearSearch()">
+        <mat-icon>close</mat-icon>
+      </button>
+    </mat-form-field>
+  </div>
+  <button mat-button class="mt-2" (click)="openAddDialog()" class="mb-3">
+    <mat-icon>add</mat-icon> New Designation
+  </button>
+  <!-- place this above the table, style as you like -->
+@if(isLoading){
+   <div class="d-flex justify-content-center align-items-center">
+       <mat-spinner diameter="50"></mat-spinner>
+   </div>
+}
+  <table mat-table [dataSource]="dataSource" matSort>
     <ng-container matColumnDef="designationId">
       <th mat-header-cell *matHeaderCellDef>Id</th>
-      <td mat-cell *matCellDef="let element">{{element.designationId}}</td>
+      <td mat-cell *matCellDef="let element">{{ element.designationId }}</td>
     </ng-container>
     <ng-container matColumnDef="title">
-       <th mat-header-cell *matHeaderCellDef mat-sort-header="title">Designation</th>
-       <td mat-cell *matCellDef="let element">{{element.title}}</td>
+      <th mat-header-cell *matHeaderCellDef mat-sort-header="title">Designation</th>
+      <td mat-cell *matCellDef="let element">{{ element.title }}</td>
     </ng-container>
     <ng-container matColumnDef="departmentId">
       <th mat-header-cell *matHeaderCellDef>DepartmentId</th>
-      <td mat-cell *matCellDef="let element">{{element.departmentId}}</td>
+      <td mat-cell *matCellDef="let element">{{ element.departmentId }}</td>
     </ng-container>
     <ng-container matColumnDef="actions">
-     <th mat-header-cell *matHeaderCellDef>Actions</th>
-     <td mat-cell *matCellDef="let element">
-        <button mat-button (click)="openEditDialog(element)" class="edit-btn"><mat-icon>edit</mat-icon>Edit</button>
-        <button mat-button (click)="openRemoveDialog(element)" class="edit-remove mx-sm-2"><mat-icon>delete</mat-icon>Remove</button>
-     </td>
+      <th mat-header-cell *matHeaderCellDef>Actions</th>
+      <td mat-cell *matCellDef="let element">
+        <button mat-button (click)="openEditDialog(element)" class="edit-btn">
+          <mat-icon>edit</mat-icon>Edit
+        </button>
+        <button mat-button (click)="openRemoveDialog(element)" class="edit-remove mx-sm-2">
+          <mat-icon>delete</mat-icon>Remove
+        </button>
+      </td>
     </ng-container>
     <tr mat-header-row *matHeaderRowDef="displayedColumns" class="table-style"></tr>
-    <tr mat-row *matRowDef="let row;columns:displayedColumns;" class="table-data"></tr>
-</table>
-<mat-paginator [pageSizeOptions]="pageSizeOptions" [length]="totalItems" [pageSize]="pageSize" (page)="onPageChange($event)">
-
-</mat-paginator>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns" class="table-data"></tr>
+  </table>
+  <mat-paginator
+    [pageSizeOptions]="pageSizeOptions"
+    [length]="totalItems"
+    [pageSize]="pageSize"
+    (page)="onPageChange($event)"
+  >
+  </mat-paginator>
 </div>
