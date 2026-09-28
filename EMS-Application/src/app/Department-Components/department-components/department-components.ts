@@ -190,7 +190,6 @@ export class DepartmentComponents implements OnInit,AfterViewInit,OnDestroy {
   }
   onSearch(value:string):void{
    this.searchSubject.next(value);
-   this.searchText=value;
   }
   clearSearch():void{
     this.searchSubject.next('');
