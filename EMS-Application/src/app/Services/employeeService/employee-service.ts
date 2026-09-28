@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Service,inject } from '@angular/core';
 import { Observable } from 'rxjs';
-import { APIResponseWrapper } from '../../Models/designation_model';
+import { APIResponseWrapper, PaggedResult } from '../../Models/designation_model';
 import { UserModel } from '../../Models/UserModel';
 import { UserDetailsDTO } from '../../Models/UserDetailsDTO';
 
@@ -33,5 +33,8 @@ export class EmployeeService {
   }
   getAllUsers():Observable<APIResponseWrapper<UserModel[]>>{
     return this.httpClient.get<APIResponseWrapper<UserModel[]>>(this.baseURL+'GetAllUsersDetails');
+  }
+  getAllEmployeesWithPagination(searchText?:string,pageNumber:number=1,pageSize:number=10,sortColumn:string='fullname',sortOrder:string='DESC'):Observable<PaggedResult<employeeDTO[]>>{
+    return this.httpClient.get<PaggedResult<employeeDTO[]>>(this.baseURL+`GetAllEmployeesWithPagginations?searchText=${searchText}&pageNumber=${pageNumber}&pageSize=${pageSize}&sortColumn=${sortColumn}&sortOrder=${sortOrder}`)
   }
 }
